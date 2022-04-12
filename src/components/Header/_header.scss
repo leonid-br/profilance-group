@@ -1,0 +1,9 @@
+header {
+    border-bottom: 1px solid gray;
+}
+
+.header__list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
