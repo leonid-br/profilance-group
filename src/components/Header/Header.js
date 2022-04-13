@@ -1,27 +1,34 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import PopUp from 'components/Modal';
+import PopUp from 'components/PopUp';
 import data from 'data/users';
+import actions from 'redux/user/user-actions';
 
 const Header = () => {
     const [showPopUp, setShowPopUp] = useState(false);
+    const dispatch = useDispatch();
 
     const setActiveClass = ({ isActive }) =>
-        isActive ? `header__item header__activeNavLink` : `header__item`;
+        isActive
+            ? `header__item header__activeNavLink`
+            : `header__item`;
 
     const toggleModal = () => {
         setShowPopUp(!showPopUp);
     };
 
     const userData = userData => {
-        const tmp = data.find(
-            el => el.name === userData[0] && el.password === userData[1],
+        const user = data.find(
+            el =>
+                el.name === userData[0] &&
+                el.password === userData[1],
         );
-        if (!tmp) {
+        if (!user) {
             alert(`Не верный логин или пароль`);
         }
-        console.log(tmp.status);
+        dispatch(actions.userVerification(user));
         toggleModal();
     };
 
@@ -297,7 +304,10 @@ const Header = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/news" className={setActiveClass}>
+                        <NavLink
+                            to="/news"
+                            className={setActiveClass}
+                        >
                             <span>Новости</span>
                         </NavLink>
                     </li>
@@ -308,7 +318,13 @@ const Header = () => {
                     </li>
                 </ul>
             </header>
-            {showPopUp && <PopUp onClose={toggleModal} data={userData} />}
+            {showPopUp && (
+                <PopUp
+                    onClose={toggleModal}
+                    data={userData}
+                    tag={'login'}
+                />
+            )}
         </>
     );
 };

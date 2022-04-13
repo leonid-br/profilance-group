@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import Header from './Header';
 import MainPage from './MainPage';
-// import News from '';
+import News from './News';
 
 function App() {
     return (
@@ -14,7 +14,7 @@ function App() {
                     <Route path="/" element={<MainPage />} />
                 </Routes>
                 <Routes>
-                    {/* <Route path="/news" element={<News />} /> */}
+                    <Route path="/news" element={<News />} />
                 </Routes>
             </Suspense>
         </>
