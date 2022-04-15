@@ -1,22 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 
-import { getUserStatus } from 'redux/user/user-selectors';
 import actions from 'redux/news/news-action';
-import news from 'data/news';
-import PopUp from 'components/PopUp';
+import { getUserStatus } from 'redux/user/user-selectors';
 import { getNews } from 'redux/news/news-selectors';
 
-const News = () => {
-    const status = useSelector(getUserStatus);
-    const [showPopUp, setShowPopUp] = useState(false);
-    const dispatch = useDispatch();
-    const newNews = useSelector(getNews);
+import PopUp from 'components/PopUp';
+import Filter from '../Filter';
+import NewsList from 'components/NewsList';
 
-    const toggleModal = () => {
+const News = () => {
+    const [showPopUp, setShowPopUp] = useState(false);
+    const [filter, setFilter] = useState('');
+
+    const status = useSelector(getUserStatus);
+    const news = useSelector(getNews);
+    const dispatch = useDispatch();
+
+    // Открытие и закрытие попапа
+    const togglePopUp = () => {
         setShowPopUp(!showPopUp);
     };
 
+    // Создание и диспатч новой новости
     const newsData = data => {
         const newNews = {
             id: Math.floor(Math.random() * 96) + 4,
@@ -30,47 +36,76 @@ const News = () => {
             text: data[1],
         };
         dispatch(actions.addNews(newNews));
-        toggleModal();
-    };
-    const tmp = [...news, ...newNews];
-
-    const getVerificationNews = e => {
-        console.log(e.target);
+        togglePopUp();
     };
 
+    // Проверка новости на одобрение
+    const getVerificationNews = id => {
+        dispatch(actions.verificationNews(id));
+    };
+
+    // Удаление новости
+    const deleteNews = id => {
+        dispatch(actions.deleteNews(id));
+    };
+
+    // Состояние фильтра
+    const filterTodo = e => {
+        setFilter(e.target.value);
+    };
+
+    // Получение новостей для рендера
+    const getVisibleNews = () => {
+        const normalizeFilter = filter.toLocaleLowerCase();
+
+        if (status === 'gest' && news) {
+            const gestNews = news.filter(
+                el => el.verification === true,
+            );
+            return gestNews.filter(
+                el =>
+                    el.title
+                        .toLocaleLowerCase()
+                        .includes(normalizeFilter) ||
+                    el.text
+                        .toLocaleLowerCase()
+                        .includes(normalizeFilter),
+            );
+        }
+
+        return (
+            news &&
+            news.filter(
+                el =>
+                    el.title
+                        .toLocaleLowerCase()
+                        .includes(normalizeFilter) ||
+                    el.text
+                        .toLocaleLowerCase()
+                        .includes(normalizeFilter),
+            )
+        );
+    };
+
+    const visibleNews = getVisibleNews();
     return (
         <div className="news">
+            <Filter value={filter} onFilter={filterTodo} />
+
             {status === 'user' && (
-                <button type="button" onClick={toggleModal}>
+                <button type="button" onClick={togglePopUp}>
                     Добавить новость
                 </button>
             )}
-            <ul className="news__list">
-                {tmp.map(el => (
-                    <li key={el.id} className="news__item">
-                        <h3>{el.title}</h3>
-                        <span>{el.data}</span>
-                        <p>{el.text}</p>
-                        {(status === 'admin') &
-                        (el.verification === false) ? (
-                            <div>
-                                <span>Новость не проверена</span>
-                                <button
-                                    type="button"
-                                    onClick={getVerificationNews}
-                                >
-                                    Одобрить?
-                                </button>
-                            </div>
-                        ) : (
-                            ''
-                        )}
-                    </li>
-                ))}
-            </ul>
+            <NewsList
+                visibleNews={visibleNews}
+                getVerificationNews={getVerificationNews}
+                deleteNews={deleteNews}
+            />
+
             {showPopUp && (
                 <PopUp
-                    onClose={toggleModal}
+                    onClose={togglePopUp}
                     data={newsData}
                     tag={'news'}
                 />
