@@ -1,14 +1,18 @@
 @import 'normalize.css';
+@import './variable';
 @import './components/app';
 
+@import './components//MainPage/main-page';
 @import './components/Header/header';
 @import './components/PopUp/pop-up';
 @import './components/News/news';
+@import './components//Filter/filter';
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-        'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-        'Droid Sans', 'Helvetica Neue', sans-serif;
+
+    font-family: 'Montserrat';
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

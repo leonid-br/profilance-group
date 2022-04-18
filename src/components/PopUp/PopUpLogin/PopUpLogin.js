@@ -32,16 +32,24 @@ const PopUpLogin = ({ hadleBackdropClick, logOut, data }) => {
 
     return (
         <div className="overlay" onClick={hadleBackdropClick}>
-            <div className="popup">
+            <div className="popup popup__auth">
                 {(status === 'admin' || status === 'user') && (
                     <>
-                        <span>
-                            Вы зашли под учетоной записью
-                            {userName}
-                        </span>
-                        <button type="button" onClick={logOut}>
-                            Выйти
-                        </button>
+                        <div className="popup__logout">
+                            <span className="popup__logout-text">
+                                Вы зашли под учетоной записью:
+                                <span className="popup__logout-name">
+                                    {userName}
+                                </span>
+                            </span>
+                            <button
+                                type="button"
+                                className="popup__btn"
+                                onClick={logOut}
+                            >
+                                Выйти
+                            </button>
+                        </div>
                     </>
                 )}
                 {status === 'gest' && (
@@ -69,7 +77,7 @@ const PopUpLogin = ({ hadleBackdropClick, logOut, data }) => {
                             </label>
                         </div>
                         <button type="submit" className="popup__btn">
-                            Ok
+                            ОК
                         </button>
                     </form>
                 )}

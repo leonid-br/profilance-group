@@ -34,10 +34,10 @@ const Header = () => {
 
     return (
         <>
-            <header>
+            <header className="header">
                 <ul className="header__list">
                     <li>
-                        <NavLink to="/" className={setActiveClass}>
+                        <NavLink to="/" className="header__item">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="257"
@@ -312,8 +312,12 @@ const Header = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <button type="button" onClick={toggleModal}>
-                            Вход/Выход
+                        <button
+                            type="button"
+                            className="header__btn"
+                            onClick={toggleModal}
+                        >
+                            Вход / Выход
                         </button>
                     </li>
                 </ul>

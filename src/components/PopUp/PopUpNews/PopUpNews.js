@@ -28,7 +28,7 @@ const PopUpNews = ({ hadleBackdropClick, data }) => {
                     className="popup__form-text"
                     onSubmit={newsHandleSubmit}
                 >
-                    <div className="popup__news-title-box">
+                    <div className="popup__news">
                         <label>
                             <input
                                 value={newsName}
@@ -47,7 +47,7 @@ const PopUpNews = ({ hadleBackdropClick, data }) => {
                     <button
                         disabled={!newsText}
                         type="submit"
-                        className="popup__btn-news"
+                        className="popup__btn"
                     >
                         Добавить
                     </button>

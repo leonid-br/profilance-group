@@ -93,7 +93,11 @@ const News = () => {
             <Filter value={filter} onFilter={filterTodo} />
 
             {status === 'user' && (
-                <button type="button" onClick={togglePopUp}>
+                <button
+                    type="button"
+                    className="news__addnews"
+                    onClick={togglePopUp}
+                >
                     Добавить новость
                 </button>
             )}

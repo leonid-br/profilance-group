@@ -14,28 +14,36 @@ const NewsList = ({
             <ul className="news__list">
                 {visibleNews.map(el => (
                     <li key={el.id} className="news__item">
-                        <h3>{el.title}</h3>
-                        <span>{el.data}</span>
-                        <p>{el.text}</p>
+                        <div className="news__card">
+                            <h3 className="news__title">
+                                {el.title}
+                            </h3>
+                            <span className="news__data">
+                                {el.data}
+                            </span>
+                            <p className="news__text">{el.text}</p>
+                        </div>
                         {(status === 'admin') &
                         (el.verification === false) ? (
-                            <div>
-                                <span>Новость не проверена</span>
+                            <div className="admin">
+                                <span>Новость не проверена!</span>
                                 <button
                                     type="button"
                                     onClick={() => {
                                         getVerificationNews(el.id);
                                     }}
+                                    className="admin__btn"
                                 >
-                                    Одобрить?
+                                    Одобрить
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => {
                                         deleteNews(el.id);
                                     }}
+                                    className="admin__btn"
                                 >
-                                    Удалить?
+                                    Удалить
                                 </button>
                             </div>
                         ) : (
