@@ -58,6 +58,7 @@ const PopUpLogin = ({ hadleBackdropClick, logOut, data }) => {
                             <label className="popup__form-field">
                                 Логин
                                 <input
+                                    autoFocus={true}
                                     type="text"
                                     value={name}
                                     onChange={handleChange}

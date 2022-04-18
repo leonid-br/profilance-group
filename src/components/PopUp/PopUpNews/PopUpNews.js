@@ -31,6 +31,7 @@ const PopUpNews = ({ hadleBackdropClick, data }) => {
                     <div className="popup__news">
                         <label>
                             <input
+                                autoFocus={true}
                                 value={newsName}
                                 type="text"
                                 className="popup__news-title"

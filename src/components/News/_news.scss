@@ -8,6 +8,7 @@
 
         display: flex;
         flex-wrap: wrap;
+
         margin-top: 20px;
     }
 
@@ -18,16 +19,17 @@
             width: 100%;
         }
 
+        margin-bottom: 15px;
+
         text-align: center;
         width: 49%;
-        margin-bottom: 15px;
     }
 
     &__card {
         width: 80%;
+
         margin-left: auto;
         margin-right: auto;
-
         padding: 7px;
 
         box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
@@ -48,12 +50,12 @@
     }
 
     &__text {
-        margin-top: 5px;
         width: 90%;
+        margin-top: 5px;
         margin-left: auto;
         margin-right: auto;
-        font-weight: 300;
 
+        font-weight: 300;
         text-align: left;
 
         overflow: auto;
@@ -94,10 +96,12 @@
 
 .admin {
     display: flex;
-    margin-top: 10px;
-    color: red;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
+    margin-top: 10px;
+
+    color: red;
 
     &__btn {
         margin-left: 5px;
